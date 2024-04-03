@@ -19,13 +19,13 @@ public class UserController {
     @Autowired
     UserService us;
 
-    @PostMapping("/post")
+    @PostMapping("/postu")
     public ResponseEntity<User> add(@RequestBody User u) {
         User newuser = us.create(u);
         return new ResponseEntity<>(newuser, HttpStatus.CREATED);
     }
 
-    @GetMapping("/getdetails")
+    @GetMapping("/getu")
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> obj = us.getAlldetails();
         return new ResponseEntity<>(obj, HttpStatus.OK);
@@ -36,18 +36,18 @@ public class UserController {
         return new ResponseEntity<>(us.getAlldetails(), HttpStatus.OK);
     }
 
-    @PutMapping("/api/user/{userId}")
+    @PutMapping("put/user/{userId}")
     public ResponseEntity<User> putMethodName(@PathVariable("userId") int id, @RequestBody User employee) {
-        if (us.updateDetails(id, employee) == true) {
+        if (us.updateDetails(id, employee)) {
             return new ResponseEntity<>(employee, HttpStatus.OK);
         }
 
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping("/api/user/{userId}")
+    @DeleteMapping("delete/user/{userId}")
     public ResponseEntity<Boolean> delete(@PathVariable("userId") int id) {
-        if (us.deleteUser(id) == true) {
+        if (us.deleteUser(id) ) {
             return new ResponseEntity<>(true, HttpStatus.OK);
         }
         return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
